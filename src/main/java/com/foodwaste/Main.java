@@ -29,8 +29,10 @@ public class Main {
 
         Tomcat tomcat = new Tomcat();
 
-        tomcat.setPort(8080);
-
+       int port = Integer.parseInt(
+        System.getenv().getOrDefault("PORT", "8080")
+);
+tomcat.setPort(port);
         // Force connector creation
         tomcat.getConnector();
 
