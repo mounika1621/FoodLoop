@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodLoop | Login</title>
+
+    <link rel="stylesheet" href="assets/css/style.css?v=6000">
+</head>
+
+<body class="login-page">
+
+    <main class="login-page-container">
+
+        <section class="login-card">
+
+            <!-- =====================================================
+                 LEFT / BRAND SECTION
+                 ===================================================== -->
+
+            <div class="login-brand-panel">
+
+                <div class="brand">
+                    Food<span>Loop</span>
+                </div>
+
+                <div class="brand-content">
+
+                    <div class="brand-label">
+                        FOOD REDISTRIBUTION PLATFORM
+                    </div>
+
+                    <h1>
+                        Turn surplus food
+                        into shared value.
+                    </h1>
+
+                    <p>
+                        Connect donors, recipients and volunteers
+                        in one simple food redistribution workflow.
+                    </p>
+
+                </div>
+
+
+                <!-- ROLE TAGS -->
+
+                <div class="brand-tags">
+
+                    <span class="tag green">
+                        Donor
+                    </span>
+
+                    <span class="tag">
+                        Recipient / NGO
+                    </span>
+
+                    <span class="tag gold">
+                        Volunteer
+                    </span>
+
+                    <span class="tag">
+                        Admin
+                    </span>
+
+                </div>
+
+
+                <!-- INFORMATION CARDS -->
+
+                <div class="brand-features">
+
+                    <div class="brand-feature">
+
+                        <div class="feature-icon">
+                            ♻
+                        </div>
+
+                        <div>
+                            <strong>
+                                Reduce food waste
+                            </strong>
+
+                            <span>
+                                Give surplus food a useful destination.
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="brand-feature">
+
+                        <div class="feature-icon">
+                            🤝
+                        </div>
+
+                        <div>
+                            <strong>
+                                Connect communities
+                            </strong>
+
+                            <span>
+                                Bring donors, recipients and volunteers together.
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                 RIGHT / LOGIN SECTION
+                 ===================================================== -->
+
+            <div class="login-form-panel">
+
+                <div class="login-header">
+
+                    <span>
+                        ACCOUNT LOGIN
+                    </span>
+
+                    <h2>
+                        Welcome back
+                    </h2>
+
+                    <p>
+                        Choose your role and sign in.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     ROLE SELECTION
+                     ================================================= -->
+
+                <div class="role-selection">
+
+                    <label>
+                        Select your role
+                    </label>
+
+
+                    <div class="role-grid">
+
+                        <button
+                            type="button"
+                            class="role active"
+                            data-role="DONOR"
+                        >
+
+                            <span class="role-icon">
+                                🍱
+                            </span>
+
+                            <span class="role-name">
+                                Donor
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="role"
+                            data-role="RECIPIENT"
+                        >
+
+                            <span class="role-icon">
+                                🏢
+                            </span>
+
+                            <span class="role-name">
+                                Recipient / NGO
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="role"
+                            data-role="VOLUNTEER"
+                        >
+
+                            <span class="role-icon">
+                                🚚
+                            </span>
+
+                            <span class="role-name">
+                                Volunteer
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="role"
+                            data-role="ADMIN"
+                        >
+
+                            <span class="role-icon">
+                                ⚙
+                            </span>
+
+                            <span class="role-name">
+                                Admin
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     LOGIN FORM
+                     ================================================= -->
+
+                <form id="loginForm">
+
+                    <div class="login-field">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="login-field">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            value="password123"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            name="remember"
+                            value="true"
+                        >
+
+                        <span>
+                            Remember email
+                        </span>
+
+                    </label>
+
+
+                    <!-- ERROR / SUCCESS MESSAGE -->
+
+                    <div
+                        id="msg"
+                        class="msg"
+                        aria-live="polite"
+                    ></div>
+
+
+                    <!-- SIGN IN -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+                        Sign In
+                    </button>
+
+                </form>
+
+
+                <!-- =================================================
+                     DEMO ACCOUNT
+                     ================================================= -->
+
+                <div class="demo-account">
+
+                    <div class="demo-account-icon">
+                        ℹ
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Demo account
+                        </strong>
+
+                        <span>
+                            Password:
+                            <b>password123</b>
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REGISTER -->
+
+                <div class="register-section">
+
+                    <span>
+                        New user?
+                    </span>
+
+                    <a href="register.html">
+                        Create account
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Toast notification container -->
+
+    <div
+        id="foodloopNotifications"
+        class="toast-container"
+        aria-live="polite"
+        aria-atomic="true"
+    ></div>
+
+
+    <script src="assets/js/app.js?v=6000"></script>
+
+
+    <!-- =========================================================
+         ROLE SELECTION
+         ========================================================= -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const form =
+                document.getElementById("loginForm");
+
+            const roles =
+                document.querySelectorAll(".role");
+
+
+            let roleInput =
+                form.querySelector('input[name="role"]');
+
+
+            if (!roleInput) {
+
+                roleInput =
+                    document.createElement("input");
+
+                roleInput.type = "hidden";
+                roleInput.name = "role";
+
+                form.appendChild(roleInput);
+            }
+
+
+            roleInput.value = "DONOR";
+
+
+            roles.forEach(function (role) {
+
+                role.addEventListener("click", function () {
+
+                    roles.forEach(function (item) {
+
+                        item.classList.remove("active");
+
+                    });
+
+
+                    this.classList.add("active");
+
+
+                    roleInput.value =
+                        this.dataset.role;
+
+                });
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

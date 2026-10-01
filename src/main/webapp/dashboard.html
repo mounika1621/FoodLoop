@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodLoop Dashboard</title>
+
+    <link rel="stylesheet" href="assets/css/style.css?v=6000">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <nav id="nav" class="nav-inner">
+
+        <div class="brand">
+            <strong>FoodLoop</strong>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="dashboard.html" class="active">
+                Dashboard
+            </a>
+
+            <button type="button" id="logoutBtn">
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main class="dashboard-container">
+
+    <!-- =========================================================
+         WELCOME
+    ========================================================== -->
+
+    <section class="hero">
+
+        <h1>
+            Welcome, <span id="who">User</span>
+        </h1>
+
+        <p>
+            FoodLoop Dashboard
+            <span aria-hidden="true">•</span>
+            Role:
+            <strong id="role">USER</strong>
+        </p>
+
+    </section>
+
+
+    <!-- =========================================================
+         COMMON STATISTICS
+    ========================================================== -->
+
+    <section id="stats" class="stats">
+
+        <div class="stat-card">
+
+            <h3>Food Available</h3>
+
+            <strong id="s-food">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Claims</h3>
+
+            <strong id="s-claims">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Deliveries</h3>
+
+            <strong id="s-deliveries">
+                0
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         RECIPIENT
+    ========================================================== -->
+
+    <section id="recipientPanel"
+             class="panel"
+             style="display: none;">
+
+        <div class="panel-header">
+
+            <h2>
+                Available Food
+            </h2>
+
+        </div>
+
+
+        <div class="filter-row">
+
+            <label for="filter">
+                Category
+            </label>
+
+            <select id="filter">
+
+                <option value="">
+                    All Categories
+                </option>
+
+                <option value="Cooked Meals">
+                    Cooked Meals
+                </option>
+
+                <option value="Bakery">
+                    Bakery
+                </option>
+
+                <option value="Fruits">
+                    Fruits
+                </option>
+
+                <option value="Vegetables">
+                    Vegetables
+                </option>
+
+                <option value="Dairy">
+                    Dairy
+                </option>
+
+                <option value="Packaged Food">
+                    Packaged Food
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div id="available">
+
+            <div class="loading">
+                Loading available food...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         RECIPIENT CLAIMS
+    ========================================================== -->
+
+    <section id="claimsPanel"
+             class="panel"
+             style="display: none;">
+
+        <div class="panel-header">
+
+            <h2>
+                My Claims
+            </h2>
+
+        </div>
+
+
+        <div id="myClaims">
+
+            <div class="loading">
+                Loading your claims...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         DONOR FOOD
+    ========================================================== -->
+
+    <section id="donorPanel"
+             class="panel"
+             style="display: none;">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    My Donated Food
+                </h2>
+
+                <p class="panel-subtitle">
+                    Manage the food you have donated to FoodLoop.
+                </p>
+
+            </div>
+
+
+            <a href="donate.html"
+               class="btn donor-donate-btn">
+
+                🍱 Donate Food
+
+            </a>
+
+        </div>
+
+
+        <div id="mine">
+
+            <div class="loading">
+                Loading your donated food...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         CLAIM REQUESTS
+    ========================================================== -->
+
+    <section id="claimRequestsPanel"
+             class="panel"
+             style="display: none;">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Claim Requests
+                </h2>
+
+                <p class="panel-subtitle">
+                    Review requests from recipients.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="requests">
+
+            <div class="loading">
+                Loading claim requests...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         DELIVERY
+    ========================================================== -->
+
+    <section id="deliveryPanel"
+             class="panel"
+             style="display: none;">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Deliveries
+                </h2>
+
+                <p class="panel-subtitle">
+                    Track food deliveries and volunteer assignments.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="deliveries">
+
+            <div class="loading">
+                Loading deliveries...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         ADMIN
+    ========================================================== -->
+
+    <section id="adminPanel"
+             class="panel"
+             style="display: none;">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Administration
+                </h2>
+
+                <p class="panel-subtitle">
+                    Monitor FoodLoop system information.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN STATISTICS -->
+
+        <div class="stats">
+
+
+            <div class="stat-card">
+
+                <h3>
+                    Total Food
+                </h3>
+
+                <strong id="admin-food-count">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    Total Claims
+                </h3>
+
+                <strong id="admin-claim-count">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    Total Deliveries
+                </h3>
+
+                <strong id="admin-delivery-count">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    Total Users
+                </h3>
+
+                <strong id="admin-user-count">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN INFORMATION -->
+
+        <div class="card"
+             style="margin-top: 24px;">
+
+            <h3>
+                FoodLoop System Information
+            </h3>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:14px 0;
+                border-bottom:1px solid var(--border);
+            ">
+
+                <span>
+                    Food Donations
+                </span>
+
+                <strong id="admin-food-info">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:14px 0;
+                border-bottom:1px solid var(--border);
+            ">
+
+                <span>
+                    Claims
+                </span>
+
+                <strong id="admin-claim-info">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:14px 0;
+                border-bottom:1px solid var(--border);
+            ">
+
+                <span>
+                    Deliveries
+                </span>
+
+                <strong id="admin-delivery-info">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:14px 0;
+            ">
+
+                <span>
+                    Registered Users
+                </span>
+
+                <strong id="admin-user-info">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN ROLE INFORMATION -->
+
+        <div class="card"
+             style="margin-top: 20px;">
+
+            <h3>
+                Administrator
+            </h3>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:14px 0;
+                border-bottom:1px solid var(--border);
+            ">
+
+                <span>
+                    Role
+                </span>
+
+                <strong>
+                    ADMIN
+                </strong>
+
+            </div>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:14px 0;
+                border-bottom:1px solid var(--border);
+            ">
+
+                <span>
+                    System
+                </span>
+
+                <strong>
+                    FoodLoop
+                </strong>
+
+            </div>
+
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:14px 0;
+            ">
+
+                <span>
+                    Status
+                </span>
+
+                <strong>
+                    Active
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         VOLUNTEER
+    ========================================================== -->
+
+    <section id="volunteerPanel"
+             class="panel"
+             style="display: none;">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Volunteer Availability
+                </h2>
+
+                <p class="panel-subtitle">
+                    Manage your availability and deliveries.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="volForm">
+
+            <div class="empty-state">
+
+                <h3>
+                    Volunteer
+                </h3>
+
+                <p>
+                    Your volunteer availability and assigned
+                    deliveries will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     EXISTING JAVASCRIPT
+========================================================== -->
+
+<script src="assets/js/app.js?v=6000"></script>
+
+<script src="assets/js/dashboard.js?v=6000"></script>
+
+
+<!-- =========================================================
+     DASHBOARD LOGIC
+========================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", async function () {
+
+    let currentUser = null;
+
+
+    /* =========================================================
+       GET CURRENT USER
+    ========================================================== */
+
+    try {
+
+        if (typeof window.user === "function") {
+
+            currentUser = await window.user();
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "FoodLoop user loading error:",
+            error
+        );
+
+    }
+
+
+    /* =========================================================
+       LOCAL STORAGE FALLBACK
+    ========================================================== */
+
+    if (!currentUser) {
+
+        try {
+
+            const stored =
+                localStorage.getItem("foodloopUser");
+
+            if (stored) {
+
+                currentUser =
+                    JSON.parse(stored);
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Unable to read localStorage user."
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       SESSION STORAGE FALLBACK
+    ========================================================== */
+
+    if (!currentUser) {
+
+        try {
+
+            const stored =
+                sessionStorage.getItem("foodloopUser");
+
+            if (stored) {
+
+                currentUser =
+                    JSON.parse(stored);
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Unable to read sessionStorage user."
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       NO USER
+    ========================================================== */
+
+    if (!currentUser) {
+
+        console.warn(
+            "FoodLoop: no logged-in user found."
+        );
+
+        return;
+
+    }
+
+
+    /* =========================================================
+       USER NAME
+    ========================================================== */
+
+    const who =
+        document.getElementById("who");
+
+    if (who) {
+
+        who.textContent =
+            currentUser.name ||
+            currentUser.fullName ||
+            currentUser.username ||
+            "User";
+
+    }
+
+
+    /* =========================================================
+       USER ROLE
+    ========================================================== */
+
+    const role =
+        String(
+            currentUser.role || ""
+        ).toUpperCase();
+
+
+    const roleElement =
+        document.getElementById("role");
+
+    if (roleElement) {
+
+        roleElement.textContent =
+            role || "USER";
+
+    }
+
+
+    /* =========================================================
+       HIDE ALL ROLE PANELS FIRST
+    ========================================================== */
+
+    const panels = [
+
+        "recipientPanel",
+        "claimsPanel",
+        "donorPanel",
+        "claimRequestsPanel",
+        "deliveryPanel",
+        "adminPanel",
+        "volunteerPanel"
+
+    ];
+
+
+    panels.forEach(function (id) {
+
+        const element =
+            document.getElementById(id);
+
+        if (element) {
+
+            element.style.display =
+                "none";
+
+        }
+
+    });
+
+
+    /* =========================================================
+       COMMON DASHBOARD STATISTICS
+    ========================================================== */
+
+    if (
+        typeof window.loadDashboardStats ===
+        "function"
+    ) {
+
+        try {
+
+            await window.loadDashboardStats();
+
+        } catch (error) {
+
+            console.error(
+                "Stats loading error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       RECIPIENT
+    ========================================================== */
+
+    if (role === "RECIPIENT") {
+
+        const recipientPanel =
+            document.getElementById(
+                "recipientPanel"
+            );
+
+        const claimsPanel =
+            document.getElementById(
+                "claimsPanel"
+            );
+
+
+        if (recipientPanel) {
+
+            recipientPanel.style.display =
+                "block";
+
+        }
+
+
+        if (claimsPanel) {
+
+            claimsPanel.style.display =
+                "block";
+
+        }
+
+
+        if (
+            typeof window.loadAvailableFood ===
+            "function"
+        ) {
+
+            try {
+
+                await window.loadAvailableFood();
+
+            } catch (error) {
+
+                console.error(
+                    "Available food loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        if (
+            typeof window.loadMyClaims ===
+            "function"
+        ) {
+
+            try {
+
+                await window.loadMyClaims();
+
+            } catch (error) {
+
+                console.error(
+                    "My claims loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        return;
+
+    }
+
+
+    /* =========================================================
+       DONOR
+    ========================================================== */
+
+    if (role === "DONOR") {
+
+        const donorPanel =
+            document.getElementById(
+                "donorPanel"
+            );
+
+        const requestsPanel =
+            document.getElementById(
+                "claimRequestsPanel"
+            );
+
+        const deliveryPanel =
+            document.getElementById(
+                "deliveryPanel"
+            );
+
+
+        if (donorPanel) {
+
+            donorPanel.style.display =
+                "block";
+
+        }
+
+
+        if (requestsPanel) {
+
+            requestsPanel.style.display =
+                "block";
+
+        }
+
+
+        if (deliveryPanel) {
+
+            deliveryPanel.style.display =
+                "block";
+
+        }
+
+
+        if (
+            typeof window.loadDonorFood ===
+            "function"
+        ) {
+
+            try {
+
+                await window.loadDonorFood();
+
+            } catch (error) {
+
+                console.error(
+                    "Donor food loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        if (
+            typeof window.loadClaimRequests ===
+            "function"
+        ) {
+
+            try {
+
+                await window.loadClaimRequests();
+
+            } catch (error) {
+
+                console.error(
+                    "Claim request loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        if (
+            typeof window.loadDeliveries ===
+            "function"
+        ) {
+
+            try {
+
+                await window.loadDeliveries();
+
+            } catch (error) {
+
+                console.error(
+                    "Delivery loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        return;
+
+    }
+
+
+    /* =========================================================
+       VOLUNTEER
+    ========================================================== */
+
+    if (role === "VOLUNTEER") {
+
+        const volunteerPanel =
+            document.getElementById(
+                "volunteerPanel"
+            );
+
+        const deliveryPanel =
+            document.getElementById(
+                "deliveryPanel"
+            );
+
+
+        if (volunteerPanel) {
+
+            volunteerPanel.style.display =
+                "block";
+
+        }
+
+
+        if (deliveryPanel) {
+
+            deliveryPanel.style.display =
+                "block";
+
+        }
+
+
+        if (
+            typeof window.loadDeliveries ===
+            "function"
+        ) {
+
+            try {
+
+                await window.loadDeliveries();
+
+            } catch (error) {
+
+                console.error(
+                    "Delivery loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        return;
+
+    }
+
+
+    /* =========================================================
+       ADMIN
+    ========================================================== */
+
+    if (role === "ADMIN") {
+
+        const adminPanel =
+            document.getElementById(
+                "adminPanel"
+            );
+
+        const deliveryPanel =
+            document.getElementById(
+                "deliveryPanel"
+            );
+
+
+        if (adminPanel) {
+
+            adminPanel.style.display =
+                "block";
+
+        }
+
+
+        if (deliveryPanel) {
+
+            deliveryPanel.style.display =
+                "block";
+
+        }
+
+
+        /* Load admin information */
+
+        await loadAdminDashboard();
+
+
+        /* Existing delivery loading */
+
+        if (
+            typeof window.loadDeliveries ===
+            "function"
+        ) {
+
+            try {
+
+                await window.loadDeliveries();
+
+            } catch (error) {
+
+                console.error(
+                    "Delivery loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        return;
+
+    }
+
+});
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const filter =
+            document.getElementById(
+                "filter"
+            );
+
+
+        if (!filter) return;
+
+
+        filter.addEventListener(
+            "change",
+            function () {
+
+                if (
+                    typeof window.filterAvailableFood ===
+                    "function"
+                ) {
+
+                    window.filterAvailableFood();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const logoutBtn =
+            document.getElementById(
+                "logoutBtn"
+            );
+
+
+        if (!logoutBtn) return;
+
+
+        logoutBtn.addEventListener(
+            "click",
+            async function () {
+
+                try {
+
+                    if (
+                        typeof window.logout ===
+                        "function"
+                    ) {
+
+                        await window.logout();
+
+                        return;
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "FoodLoop logout error:",
+                        error
+                    );
+
+                }
+
+
+                try {
+
+                    localStorage.removeItem(
+                        "foodloopUser"
+                    );
+
+                    sessionStorage.removeItem(
+                        "foodloopUser"
+                    );
+
+                } catch (error) {
+
+                    console.warn(
+                        "Storage cleanup failed."
+                    );
+
+                }
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+========================================================== */
+
+async function loadAdminDashboard() {
+
+    console.log(
+        "FoodLoop: Loading admin dashboard..."
+    );
+
+
+    /* =========================================================
+       FOOD / CLAIM / DELIVERY STATISTICS
+    ========================================================== */
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/food?mode=stats",
+                {
+                    credentials: "include"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            console.error(
+                "Admin stats request failed:",
+                response.status
+            );
+
+            return;
+
+        }
+
+
+        const stats =
+            await response.json();
+
+
+        const foodCount =
+            Number(
+                stats.foodCount || 0
+            );
+
+
+        const claimCount =
+            Number(
+                stats.claimCount || 0
+            );
+
+
+        const deliveryCount =
+            Number(
+                stats.deliveryCount || 0
+            );
+
+
+        /* Top statistics */
+
+        const foodElement =
+            document.getElementById(
+                "admin-food-count"
+            );
+
+        const claimElement =
+            document.getElementById(
+                "admin-claim-count"
+            );
+
+        const deliveryElement =
+            document.getElementById(
+                "admin-delivery-count"
+            );
+
+
+        if (foodElement) {
+
+            foodElement.textContent =
+                foodCount;
+
+        }
+
+
+        if (claimElement) {
+
+            claimElement.textContent =
+                claimCount;
+
+        }
+
+
+        if (deliveryElement) {
+
+            deliveryElement.textContent =
+                deliveryCount;
+
+        }
+
+
+        /* Information section */
+
+        const foodInfo =
+            document.getElementById(
+                "admin-food-info"
+            );
+
+        const claimInfo =
+            document.getElementById(
+                "admin-claim-info"
+            );
+
+        const deliveryInfo =
+            document.getElementById(
+                "admin-delivery-info"
+            );
+
+
+        if (foodInfo) {
+
+            foodInfo.textContent =
+                foodCount;
+
+        }
+
+
+        if (claimInfo) {
+
+            claimInfo.textContent =
+                claimCount;
+
+        }
+
+
+        if (deliveryInfo) {
+
+            deliveryInfo.textContent =
+                deliveryCount;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin statistics error:",
+            error
+        );
+
+    }
+
+
+    /* =========================================================
+       USERS
+    ========================================================== */
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/food?mode=users",
+                {
+                    credentials: "include"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            console.error(
+                "Admin users request failed:",
+                response.status
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        let users = [];
+
+
+        if (Array.isArray(data)) {
+
+            users = data;
+
+        } else if (
+            Array.isArray(data.users)
+        ) {
+
+            users = data.users;
+
+        }
+
+
+        const userCount =
+            users.length;
+
+
+        const userElement =
+            document.getElementById(
+                "admin-user-count"
+            );
+
+
+        const userInfo =
+            document.getElementById(
+                "admin-user-info"
+            );
+
+
+        if (userElement) {
+
+            userElement.textContent =
+                userCount;
+
+        }
+
+
+        if (userInfo) {
+
+            userInfo.textContent =
+                userCount;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin users error:",
+            error
+        );
+
+    }
+
+
+    console.log(
+        "FoodLoop: Admin dashboard loaded."
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>

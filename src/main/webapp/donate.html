@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Donate Food</title>
+
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <nav
+        id="nav"
+        class="nav"
+    ></nav>
+
+
+    <main class="container">
+
+        <div class="hero">
+
+            <h1>
+                Donate surplus food
+            </h1>
+
+            <p>
+                Publish real food, exact expiry time,
+                source type and pickup location.
+            </p>
+
+        </div>
+
+
+        <section class="card">
+
+            <form
+                id="donateForm"
+                enctype="multipart/form-data"
+            >
+
+                <div class="form-grid">
+
+
+                    <!-- FOOD NAME -->
+
+                    <div class="field">
+
+                        <label>
+                            Food Name *
+                        </label>
+
+                        <input
+                            name="foodName"
+                            required
+                            placeholder="Vegetable Rice"
+                        >
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="field">
+
+                        <label>
+                            Category *
+                        </label>
+
+                        <select
+                            name="category"
+                            required
+                        >
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Cooked Meals
+                            </option>
+
+                            <option>
+                                Bakery
+                            </option>
+
+                            <option>
+                                Fruits
+                            </option>
+
+                            <option>
+                                Vegetables
+                            </option>
+
+                            <option>
+                                Packaged Food
+                            </option>
+
+                            <option>
+                                Dairy
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- QUANTITY -->
+
+                    <div class="field">
+
+                        <label>
+                            Quantity *
+                        </label>
+
+                        <input
+                            name="quantity"
+                            required
+                            placeholder="15 kg"
+                        >
+
+                    </div>
+
+
+                    <!-- SOURCE TYPE -->
+
+                    <div class="field">
+
+                        <label>
+                            Source Type *
+                        </label>
+
+                        <select
+                            name="sourceType"
+                            required
+                        >
+
+                            <option value="">
+                                Select source
+                            </option>
+
+                            <option>
+                                Hotel
+                            </option>
+
+                            <option>
+                                Restaurant
+                            </option>
+
+                            <option>
+                                Bakery
+                            </option>
+
+                            <option>
+                                Marriage Hall
+                            </option>
+
+                            <option>
+                                Catering Service
+                            </option>
+
+                            <option>
+                                Household
+                            </option>
+
+                            <option>
+                                College / Hostel
+                            </option>
+
+                            <option>
+                                Supermarket
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- EXPIRY -->
+
+                    <div class="field">
+
+                        <label>
+                            Expiry Date & Time *
+                        </label>
+
+                        <input
+                            id="expiryAt"
+                            name="expiryAt"
+                            type="datetime-local"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="field">
+
+                        <label>
+                            Pickup Location *
+                        </label>
+
+                        <input
+                            name="location"
+                            required
+                            placeholder="Gandhipuram, Coimbatore"
+                        >
+
+                    </div>
+
+
+                    <!-- IMAGE -->
+
+                    <div class="field full">
+
+                        <label>
+                            Food Photo *
+                        </label>
+
+                        <input
+                            id="foodImage"
+                            name="foodImage"
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp"
+                            required
+                        >
+
+                        <img
+                            id="preview"
+                            class="preview"
+                            alt="Food preview"
+                            style="display:none;"
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="field full">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea
+                            name="description"
+                            placeholder="Freshness, packaging, ingredients..."
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    id="submitDonation"
+                    type="submit"
+                    class="btn"
+                >
+                    Publish Donation
+                </button>
+
+
+                <div
+                    id="donatemsg"
+                    class="msg"
+                ></div>
+
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- YOUR EXISTING GLOBAL JAVASCRIPT -->
+
+    <script src="assets/js/app.js"></script>
+
+
+    <!-- DONATION JAVASCRIPT -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const form =
+                    document.getElementById("donateForm");
+
+                const imageInput =
+                    document.getElementById("foodImage");
+
+                const preview =
+                    document.getElementById("preview");
+
+                const submitButton =
+                    document.getElementById("submitDonation");
+
+                const message =
+                    document.getElementById("donatemsg");
+
+
+                /*
+                 * IMAGE PREVIEW
+                 */
+
+                if (imageInput) {
+
+                    imageInput.addEventListener(
+                        "change",
+                        function () {
+
+                            const file =
+                                imageInput.files[0];
+
+                            if (!file) {
+
+                                preview.style.display =
+                                    "none";
+
+                                preview.removeAttribute(
+                                    "src"
+                                );
+
+                                return;
+
+                            }
+
+
+                            if (file.size > 10 * 1024 * 1024) {
+
+                                message.textContent =
+                                    "Image size must be less than 10 MB.";
+
+                                message.style.display =
+                                    "block";
+
+                                imageInput.value = "";
+
+                                preview.style.display =
+                                    "none";
+
+                                return;
+
+                            }
+
+
+                            const reader =
+                                new FileReader();
+
+                            reader.onload =
+                                function (event) {
+
+                                    preview.src =
+                                        event.target.result;
+
+                                    preview.style.display =
+                                        "block";
+
+                                };
+
+                            reader.readAsDataURL(file);
+
+                        }
+                    );
+
+                }
+
+
+                /*
+                 * SET MINIMUM EXPIRY TIME
+                 */
+
+                const expiryInput =
+                    document.getElementById("expiryAt");
+
+                if (expiryInput) {
+
+                    const now =
+                        new Date();
+
+                    const year =
+                        now.getFullYear();
+
+                    const month =
+                        String(
+                            now.getMonth() + 1
+                        ).padStart(2, "0");
+
+                    const day =
+                        String(
+                            now.getDate()
+                        ).padStart(2, "0");
+
+                    const hours =
+                        String(
+                            now.getHours()
+                        ).padStart(2, "0");
+
+                    const minutes =
+                        String(
+                            now.getMinutes()
+                        ).padStart(2, "0");
+
+
+                    expiryInput.min =
+                        year +
+                        "-" +
+                        month +
+                        "-" +
+                        day +
+                        "T" +
+                        hours +
+                        ":" +
+                        minutes;
+
+                }
+
+
+                /*
+                 * FORM SUBMISSION
+                 */
+
+                if (!form) {
+
+                    console.error(
+                        "FoodLoop: donateForm not found."
+                    );
+
+                    return;
+
+                }
+
+
+                form.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+
+                        console.log(
+                            "FoodLoop: donation form submitted."
+                        );
+
+
+                        /*
+                         * CHECK IMAGE
+                         */
+
+                        const file =
+                            imageInput &&
+                            imageInput.files
+                                ? imageInput.files[0]
+                                : null;
+
+
+                        if (!file) {
+
+                            showMessage(
+                                "Please select a food image.",
+                                "error"
+                            );
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * CHECK FORM
+                         */
+
+                        if (!form.checkValidity()) {
+
+                            form.reportValidity();
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * PREPARE FORM DATA
+                         */
+
+                        const formData =
+                            new FormData(form);
+
+
+                        /*
+                         * SEND BOTH NAMES
+                         * TO SUPPORT EXISTING BACKEND
+                         */
+
+                        formData.set(
+                            "action",
+                            "donate"
+                        );
+
+
+                        formData.set(
+                            "expiryDate",
+                            formData.get("expiryAt")
+                        );
+
+
+                        formData.set(
+                            "image",
+                            file
+                        );
+
+
+                        /*
+                         * DISABLE BUTTON
+                         */
+
+                        submitButton.disabled =
+                            true;
+
+                        submitButton.textContent =
+                            "Publishing...";
+
+
+                        showMessage(
+                            "Publishing your donation...",
+                            "info"
+                        );
+
+
+                        try {
+
+                            console.log(
+                                "FoodLoop: sending donation to /api/food"
+                            );
+
+
+                            const response =
+                                await fetch(
+                                    "/api/food",
+                                    {
+                                        method: "POST",
+
+                                        credentials: "include",
+
+                                        body: formData
+                                    }
+                                );
+
+
+                            console.log(
+                                "FoodLoop response status:",
+                                response.status
+                            );
+
+
+                            const responseText =
+                                await response.text();
+
+
+                            console.log(
+                                "FoodLoop response:",
+                                responseText
+                            );
+
+
+                            let result = null;
+
+
+                            try {
+
+                                result =
+                                    JSON.parse(
+                                        responseText
+                                    );
+
+                            } catch (jsonError) {
+
+                                result = {
+                                    message:
+                                        responseText
+                                };
+
+                            }
+
+
+                            if (!response.ok) {
+
+                                throw new Error(
+                                    result.message ||
+                                    result.error ||
+                                    "Donation failed. Server returned " +
+                                    response.status
+                                );
+
+                            }
+
+
+                            showMessage(
+                                result.message ||
+                                "Food donation published successfully!",
+                                "success"
+                            );
+
+
+                            /*
+                             * CLEAR FORM
+                             */
+
+                            form.reset();
+
+
+                            if (preview) {
+
+                                preview.src =
+                                    "";
+
+                                preview.style.display =
+                                    "none";
+
+                            }
+
+
+                            /*
+                             * GO BACK TO DASHBOARD
+                             */
+
+                            setTimeout(
+                                function () {
+
+                                    window.location.href =
+                                        "dashboard.html";
+
+                                },
+                                1200
+                            );
+
+
+                        } catch (error) {
+
+                            console.error(
+                                "FoodLoop donation error:",
+                                error
+                            );
+
+
+                            showMessage(
+                                error.message ||
+                                "Unable to publish donation.",
+                                "error"
+                            );
+
+
+                        } finally {
+
+                            submitButton.disabled =
+                                false;
+
+                            submitButton.textContent =
+                                "Publish Donation";
+
+                        }
+
+                    }
+                );
+
+
+                /*
+                 * MESSAGE FUNCTION
+                 */
+
+                function showMessage(
+                    text,
+                    type
+                ) {
+
+                    if (!message) {
+
+                        return;
+
+                    }
+
+
+                    message.textContent =
+                        text;
+
+                    message.style.display =
+                        "block";
+
+
+                    message.className =
+                        "msg " +
+                        (
+                            type ||
+                            ""
+                        );
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
