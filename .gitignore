@@ -3,3 +3,4 @@ tomcat.8080/
 *.class
 .idea/
 .vscode/
+foodloop.db
