@@ -1,5 +1,9 @@
 FOODLOOP 3.0 - Food Waste Redistribution System
 
+## 🚀 Live Demo
+
+https://foodloop-aon4.onrender.com
+
 STACK
 - Java 17+
 - Maven
